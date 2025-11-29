@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>JS Dropdown Menu</title>
+
+        <style>
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+            li {
+                background: #d69191;
+                padding: 10px;
+                width: 150px;
+                border: 1px solid #5bbb3e;
+                cursor: pointer;
+                position: relative;
+            }
+            .submenu li {
+                background: #eca2a2;
+            }
+            .submenu {
+                display: none;
+                position: absolute;
+                left: 150px;
+                top: 0;
+            }
+        </style>
+
+
+    </head>
+
+    <body>
+        <h2>JS Dropdown Menu</h2>
+        <ul>
+            <li onmouseover="showMenu()" onmouseout="hideMenu()">
+                Name
+                <ul id="sub1" class="submenu">
+                    <li>Aditya</li>
+                    <li>Ayush</li>
+                    <li>Sanjay</li>
+                    <li>Abhishek</li>
+                    <li>Raj</li>
+                </ul>
+            </li>
+        </ul>
+
+        <script>
+            function showMenu() {
+                document.getElementById("sub1").style.display = "block";
+            }
+
+            function hideMenu() {
+                document.getElementById("sub1").style.display = "none";
+            }
+        </script>
+    </body>
+
+</html>

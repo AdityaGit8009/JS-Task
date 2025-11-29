@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Resize Image</title>
+        <style>
+            img{
+                height: 200px;
+                width: 400px;
+                text-align: center;
+            }
+        </style>
+    </head>
+
+    <body>
+        Enter Height in px : 
+        <input type="number" id="Fheight" placeholder="Enter Height"><br><br>
+        Enter Width in px :         
+        <input type="number" id="Fwidth" placeholder="Enter Width"><br><br>
+        <button onclick="resizeImage()">Resize Image</button><br><br>
+        <img id="myImage" src="./images/topHighlights-indiaNavy.webp" alt=""/>
+        <script>
+            function resizeImage() {
+                var width = document.getElementById("Fwidth").value;
+                var height = document.getElementById("Fheight").value;
+                myImage.style.width = width + 'px';
+                myImage.style.height = height + 'px';
+            }
+        </script>
+    </body>
+
+</html>

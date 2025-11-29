@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task2</title>
+  </head>
+  <body>
+    Enter First Number : <input type="number" id="fnum" /><br /><br />
+    Enter Second Number : <input type="number" id="snum" /><br /><br />
+    <input type="submit" value="Addition" onclick="sum()" />
+    <input type="submit" value="Subtraction" onclick="sub()" />
+    <input type="submit" value="Multiplication" onclick="mult()" />
+    <input type="submit" value="Division" onclick="div()" />
+    <input type="submit" value="Modulus" onclick="mod()" />
+    <h1 id="result"></h1>
+    <script>
+      function sum() {
+        var a = document.getElementById("fnum").value;
+        var b = document.getElementById("snum").value;
+        var c = parseInt(a) + parseInt(b);
+        document.getElementById("result").innerHTML = c;
+      }
+      function sub() {
+        var a = document.getElementById("fnum").value;
+        var b = document.getElementById("snum").value;
+        var c = parseInt(a) - parseInt(b);
+        document.getElementById("result").innerHTML = c;
+      }
+      function mult() {
+        var a = document.getElementById("fnum").value;
+        var b = document.getElementById("snum").value;
+        var c = parseInt(a) * parseInt(b);
+        document.getElementById("result").innerHTML = c;
+      }
+      function div() {
+        var a = document.getElementById("fnum").value;
+        var b = document.getElementById("snum").value;
+        var c = parseInt(a) / parseInt(b);
+        document.getElementById("result").innerHTML = c;
+      }
+      function mod() {
+        var a = document.getElementById("fnum").value;
+        var b = document.getElementById("snum").value;
+        var c = parseInt(a) % parseInt(b);
+        document.getElementById("result").innerHTML = c;
+      }
+    </script>
+  </body>
+</html>

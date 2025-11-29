@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Dropdown</title>
+    </head>
+    <body>
+        Enter Item :
+        <input type="text" id="txt">
+        <select id="dd"></select>
+        <br><br>
+        <input type="button" value="Add After All" onclick="addAfterAll()">
+        <input type="button" value="Add Before First" onclick="addBeforeFirst()">
+        <input type="button" value="Add After First" onclick="addAfterFirst()">
+        <input type="button" value="Empty All Items" onclick="emptyAll()">
+        <input type="button" value="Remove Dropdown" onclick="removeDropdown()">
+        <script>
+            var items = ["One", "Two"];
+            dropdown();
+            function dropdown() {
+                var dd = document.getElementById("dd");
+                dd.innerHTML = "";
+                for (var i = 0; i < items.length; i++) {
+                    var opt = document.createElement("option");
+                    opt.text = items[i];
+                    dd.appendChild(opt);
+                }
+            }
+            function addAfterAll() {
+                var val = document.getElementById("txt").value;
+                items.push(val);
+                dropdown();
+            }
+            function addBeforeFirst() {
+                var val = document.getElementById("txt").value;
+                items.unshift(val);
+                dropdown();
+            }
+            function addAfterFirst() {
+                var val = document.getElementById("txt").value;
+                items.splice(1, 0, val);
+                dropdown();
+            }
+            function emptyAll() {
+                items = [];
+                dropdown();
+            }
+            function removeDropdown() {
+                document.getElementById("dd").remove();
+            }
+        </script>
+    </body>
+</html>

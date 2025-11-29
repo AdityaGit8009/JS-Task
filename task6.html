@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bind UL to Dropdown</title>
+  </head>
+  <body>
+    <ul id="list">
+      <li>India</li>
+      <li>USA</li>
+      <li>Canada</li>
+      <li>Australia</li>
+      <li>Germany</li>
+    </ul>
+    <select id="ddl"></select>
+    <script>
+      var ul = document.getElementById("list");
+      var liItems = ul.getElementsByTagName("li");
+      var dropdown = document.getElementById("ddl");
+      for (var i = 0; i < liItems.length; i++) {
+        var option = document.createElement("option");
+        option.textContent = liItems[i].textContent;
+        dropdown.appendChild(option);
+      }
+    </script>
+  </body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Task 4</title>
+        <style>
+            #first,
+            #second {
+                height: 100px;
+                width: 140px;
+                border: 2px solid black;
+                border-radius: 10px;
+                float: left;
+                padding: 10px 0 0 10px;
+                font-size: 26px;
+                color: white;
+            }
+
+            #first {
+                background: red;
+            }
+
+            #second {
+                background: green;
+                margin-left: 20px;
+            }
+
+            .btn {
+                height: 30px;
+                width: 70px;
+                margin: 10px 60px 20px 40px;
+            }
+        </style>
+    </head>
+    <body>
+
+        <input type="button" value="prev" onclick="swap()" class="btn">
+        <input type="button" value="next" onclick="swap()" class="btn"><br><br>
+
+        <div id="first">This is div 1</div>
+        <div id="second">This is div 2</div>
+        <script>
+            function swap() {
+                var d1 = document.getElementById("first");
+                var d2 = document.getElementById("second");
+                var temp = d1.innerHTML;
+                d1.innerHTML = d2.innerHTML;
+                d2.innerHTML = temp;
+            }
+        </script>
+
+    </body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Dynamic Menu</title>
+        <style>
+            ul {
+                list-style-type: none;
+                padding: 0;
+                display: flex;
+            }
+            li {
+                width: 200px;
+                text-align: center;
+                cursor: pointer;
+            }
+            select,
+            input {
+                padding: 6px 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Create Menu</h2>
+        <select id="items">
+            <option value="">--Select---</option>
+            <option value="Home">Home</option>
+            <option value="About">About</option>
+            <option value="Skills">Skills</option>
+            <option value="Project">Project</option>
+            <option value="Contact">Contact</option>
+        </select>
+        <input type="button" value="Add Item" onclick="addItem()">
+        <ul id="menu"></ul>
+        <script>
+            function addItem() {
+                var select = document.getElementById("items").value;
+                if (select == "") {
+                    return;
+                }
+                var li = document.createElement("li");
+                li.textContent = select;
+                document.getElementById("menu").appendChild(li);
+                select = "";
+            }
+        </script>
+    </body>
+
+</html>

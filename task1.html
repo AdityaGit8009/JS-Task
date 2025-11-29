@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Print Table</title>
+  </head>
+  <body>
+    Enter a Number : <input type="number" id="num" /><br /><br />
+    <input type="button" value="Get Table" onclick="table()" />
+    <div id="result"></div>
+
+    <script>
+      function table() {
+        // window.alert("hii");
+        var a = document.getElementById("num").value;
+        // window.alert(a);
+        var b=0;
+        for (i = 1; i <= 10; i++) {
+          // window.alert(a*i);
+          for (var i = 1; i <= 10; i++) {
+            b += a * i + "<br>";
+          }
+          document.getElementById("result").innerHTML = b;
+        }
+      }
+    </script>
+  </body>
+</html>

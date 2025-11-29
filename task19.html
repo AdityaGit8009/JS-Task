@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Website URL Validation</title>
+        <style>
+            input {
+                padding: 8px;
+                width: 260px;
+                border: 2px solid #999;
+                border-radius: 5px;
+            }
+
+            #msg {
+                font-weight: 600;
+                margin-top: 8px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h2>Validate Website URL</h2>
+        <input type="url" id="url" placeholder="Enter website URL .......">
+        <button onclick="validateURL()">Validate</button>
+        <p id="msg"></p>
+        <script>
+            function validateURL() {
+                var url = document.getElementById("url").value.trim();
+                var msg = document.getElementById("msg");
+                if (url == "") {
+                    msg.style.color = "red";
+                    msg.textContent = "Please enter a URL.";
+                    return;
+                }
+                if (url.startsWith("http://")) {
+                    url = url.substring(7);
+                }
+                else if (url.startsWith("https://")) {
+                    url = url.substring(8);
+                }
+                if (url.includes(" ")) {
+                    msg.style.color = "red";
+                    msg.textContent = "URL cannot contain spaces.";
+                    return;
+                }
+                var dotIndex = url.lastIndexOf(".");
+                if (dotIndex === -1) {
+                    msg.style.color = "red";
+                    msg.textContent = "Invalid URL. Missing domain extension.";
+                    return;
+                }
+                var extension = url.substring(dotIndex + 1);
+                if (extension.length < 2) {
+                    msg.style.color = "red";
+                    msg.textContent = "Invalid domain extension.";
+                    return;
+                }
+                msg.style.color = "green";
+                msg.textContent = "Valid Website URL.";
+            }
+
+        </script>
+
+    </body>
+
+</html>

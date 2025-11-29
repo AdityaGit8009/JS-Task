@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Even Odd Colors Using JS</title>
+    </head>
+
+    <body>
+
+        <h2>Even & Odd Colored Ordered List </h2>
+
+        <ol id="myList">
+            <li>Item One</li>
+            <li>Item Two</li>
+            <li>Item Three</li>
+            <li>Item Four</li>
+            <li>Item Five</li>
+            <li>Item Six</li>
+        </ol>
+        <script>
+            var list = document.getElementById("myList");
+            var items = list.getElementsByTagName("li");
+
+            for (var i = 0; i < items.length; i++) {
+                if ((i + 1) % 2 == 0) {
+                    items[i].style.color = "green";
+                    items[i].style.fontWeight = "900";
+                } else {
+                    items[i].style.color = "red";
+                }
+            }
+        </script>
+    </body>
+
+</html>

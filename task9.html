@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Input Validation</title>
+    <style>
+      .errormsg {
+        color: red;
+        font-size: 14px;
+        display: none;
+        margin: 0 0 6px 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>Fill Your Details</h2><br><br>
+    Enter Your Name
+    <input type="text" id="name" />
+    <p class="errormsg" id="nameError">Please fill your name</p><br>
+    <input type="button" value="Submit" onclick="submit()">
+    <script>
+      function submit() {
+        // window.alert("HIi");
+        var name = document.getElementById("name");
+        // window.alert(name);
+        var nameError = document.getElementById("nameError");
+        valid = true;
+        if (name.value.trim() == "") {
+          nameError.style.display = "block";
+          valid = false;
+        } else {
+          nameError.style.display = "none";
+        }
+        if (valid) {
+          alert("Form submitted successfully!");
+        }
+      }
+    </script>
+  </body>
+
+</html>

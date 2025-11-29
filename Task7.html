@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Change Rows Color</title>
+    </head>
+
+    <body>
+        <h3>Change Rows Color Using JS</h3>
+        <table id="Mytable" border="2">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Branch</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Aditya</td>
+                <td>CSE</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Sanjay</td>
+                <td>CSE</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Abhishek</td>
+                <td>CSE</td>
+            </tr>
+        </table>
+
+        <script>
+            var table = document.getElementById("Mytable");
+            var tRows = table.getElementsByTagName("tr");
+            for (var i = 0; i < tRows.length; i++) {
+                tRows[i].style.backgroundColor = "purple";
+                tRows[i].style.color = "white";
+            }
+        </script>
+
+    </body>
+
+</html>

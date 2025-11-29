@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task3</title>
+</head>
+<body>
+    Enter Height of First Person : <input type="text" id="fph"><br><br>
+    Enter Height of Second Person : <input type="text" id="sph"><br><br>
+    Enter Height of Third Person : <input type="text" id="tph"><br><br>
+    <input type="submit" value="Check" onclick="check()">
+    <h1 id="h1"></h1>
+
+    <script>
+        function check(){
+            // window.alert("hii");
+            var a = document.getElementById("fph").value;
+            // window.alert(a);
+            var b = document.getElementById("sph").value;
+            // window.alert(b);
+            var c = document.getElementById("tph").value;
+            // window.alert(c);
+            (parseInt(a)>parseInt(b))?(parseInt(a)>parseInt(c))?document.getElementById("h1").innerHTML="First person is Tallest" : document.getElementById("h1").innerHTML="Third person is Tallest" : (parseInt(b)>parseInt(c))?document.getElementById("h1").innerHTML="Second person is Tallest" : document.getElementById("h1").innerHTML="Third person is Tallest";
+        }
+    </script>
+</body>
+</html>

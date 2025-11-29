@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Show Hide Toggle Image (JS)</title>
+        <style>
+            img {
+                width: 250px;
+                border: 2px solid #555;
+                border-radius: 10px;
+            }
+            button {
+                padding: 8px 14px;
+                margin-right: 6px;
+                margin-top: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Show / Hide / Toggle Image (JavaScript)</h2>
+        <img id="myImg" src="./images/banner-2025-2.webp" alt="Sample Image">
+
+        <br>
+
+        <button onclick="showImg()">Show</button>
+        <button onclick="hideImg()">Hide</button>
+        <button onclick="toggleImg()">Show / Hide</button>
+
+        <script>
+            var img = document.getElementById("myImg");
+            function showImg() {
+                img.style.display = "block";
+            }
+            function hideImg() {
+                img.style.display = "none";
+            }
+            function toggleImg() {
+                if (img.style.display == "none") {
+                    img.style.display = "block";
+                } else {
+                    img.style.display = "none";
+                }
+            }
+        </script>
+
+    </body>
+
+</html>

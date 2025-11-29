@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Task</title>
+    <style>
+        #details{
+            height: 150px;
+            width: 400px;
+            border: 2px solid red;
+        }
+        #show{
+            height: 150px;
+            width: 400px;
+            border: 2px solid red;
+        }
+    </style>
+</head>
+<body>
+    Enter Name : <input type="text" id="name"><br><br>
+    Enter Branch : <input type="text" id="branch"><br><br>
+    Enter Enrollment Roll : <input type="number" id="eroll"><br><br>
+    College Name : <input type="text" id="cname"><br><br>
+    <input type="Submit" value="Submit" onclick="submit()"><br><br>
+    <div id="details">
+        <p id="p1"></p>
+        <p id="p2"></p>
+        <p id="p3"></p>
+        <p id="p4"></p>
+    </div><br>
+    <input type="submit" value="Copy" onclick="copy()"><br><br>
+    <div id="show">
+        <p id="p5"></p>
+        <p id="p6"></p>
+        <p id="p7"></p>
+        <p id="p8"></p>
+    </div>
+
+    <script>
+        function submit(){
+            // window.alert("hii");
+            var a = document.getElementById("name").value;
+            // window.alert(a);
+            var b = document.getElementById("branch").value;
+            // window.alert(b);
+            var c = document.getElementById("eroll").value;
+            // window.alert(c);
+            var d = document.getElementById("cname").value;
+            // window.alert(d);
+            document.getElementById("p1").innerHTML="Name = "+a;
+            document.getElementById("p2").innerHTML="Branch = "+b;
+            document.getElementById("p3").innerHTML="Enrollment Number = "+c;
+            document.getElementById("p4").innerHTML="College Name = "+d;
+        }
+        function copy(){
+            // window.alert("hii");
+            var a = document.getElementById("name").value;
+            // window.alert(a);
+            var b = document.getElementById("branch").value;
+            // window.alert(b);
+            var c = document.getElementById("eroll").value;
+            // window.alert(c);
+            var d = document.getElementById("cname").value;
+            // window.alert(d);
+            document.getElementById("p5").innerHTML="Name = "+a;
+            document.getElementById("p6").innerHTML="Branch = "+b;
+            document.getElementById("p7").innerHTML="Enrollment Number = "+c;
+            document.getElementById("p8").innerHTML="College Name = "+d;   
+        }
+    </script>
+</body>
+</html>

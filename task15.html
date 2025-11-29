@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Multicolor Dropdown List</title>
+    </head>
+
+    <body>
+        <h2>Multicolor Dropdown List (Using JavaScript)</h2>
+
+        <select id="myDrop" size="6" style="width:150px;">
+            <option>Red</option>
+            <option>Blue</option>
+            <option>Green</option>
+            <option>Yellow</option>
+            <option>Purple</option>
+            <option>Orange</option>
+        </select>
+        <script>
+            var colors = ["red", "blue", "green", "gold", "purple", "orange"];
+            var dd = document.getElementById("myDrop");
+            var items = dd.options;
+            for (var i = 0; i < items.length; i++) {
+                items[i].style.color = colors[i % colors.length];
+                items[i].style.fontWeight = "600";
+            }
+        </script>
+
+    </body>
+
+</html>
