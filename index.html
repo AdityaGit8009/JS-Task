@@ -3,71 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JS Task</title>
-    <style>
-        #details{
-            height: 150px;
-            width: 400px;
-            border: 2px solid red;
-        }
-        #show{
-            height: 150px;
-            width: 400px;
-            border: 2px solid red;
-        }
-    </style>
+    <title>Student details | JavaScript exercises</title>
+    <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
-    Enter Name : <input type="text" id="name"><br><br>
-    Enter Branch : <input type="text" id="branch"><br><br>
-    Enter Enrollment Roll : <input type="number" id="eroll"><br><br>
-    College Name : <input type="text" id="cname"><br><br>
-    <input type="Submit" value="Submit" onclick="submit()"><br><br>
-    <div id="details">
-        <p id="p1"></p>
-        <p id="p2"></p>
-        <p id="p3"></p>
-        <p id="p4"></p>
-    </div><br>
-    <input type="submit" value="Copy" onclick="copy()"><br><br>
-    <div id="show">
-        <p id="p5"></p>
-        <p id="p6"></p>
-        <p id="p7"></p>
-        <p id="p8"></p>
-    </div>
+    <main>
+        <h1>Student details</h1>
+        <form id="student-form" class="fields">
+            <label for="name">Name</label>
+            <input id="name" name="name" autocomplete="name" required>
+            <label for="branch">Branch</label>
+            <input id="branch" name="branch" required>
+            <label for="eroll">Enrollment number</label>
+            <input id="eroll" name="eroll" inputmode="numeric" pattern="[0-9]+" title="Use digits only" required>
+            <label for="cname">College name</label>
+            <input id="cname" name="cname" autocomplete="organization" required>
+            <button type="submit">Submit details</button>
+        </form>
 
+        <section id="details" class="record" aria-labelledby="submitted-title" hidden>
+            <h2 id="submitted-title">Submitted details</h2>
+            <dl>
+                <dt>Name</dt><dd data-field="name"></dd>
+                <dt>Branch</dt><dd data-field="branch"></dd>
+                <dt>Enrollment number</dt><dd data-field="eroll"></dd>
+                <dt>College name</dt><dd data-field="cname"></dd>
+            </dl>
+        </section>
+        <button id="copy" type="button" disabled>Copy submitted details</button>
+        <section id="show" class="record" aria-labelledby="copied-title" hidden>
+            <h2 id="copied-title">Copied details</h2>
+        </section>
+        <p id="student-status" role="status"></p>
+    </main>
     <script>
-        function submit(){
-            // window.alert("hii");
-            var a = document.getElementById("name").value;
-            // window.alert(a);
-            var b = document.getElementById("branch").value;
-            // window.alert(b);
-            var c = document.getElementById("eroll").value;
-            // window.alert(c);
-            var d = document.getElementById("cname").value;
-            // window.alert(d);
-            document.getElementById("p1").innerHTML="Name = "+a;
-            document.getElementById("p2").innerHTML="Branch = "+b;
-            document.getElementById("p3").innerHTML="Enrollment Number = "+c;
-            document.getElementById("p4").innerHTML="College Name = "+d;
-        }
-        function copy(){
-            // window.alert("hii");
-            var a = document.getElementById("name").value;
-            // window.alert(a);
-            var b = document.getElementById("branch").value;
-            // window.alert(b);
-            var c = document.getElementById("eroll").value;
-            // window.alert(c);
-            var d = document.getElementById("cname").value;
-            // window.alert(d);
-            document.getElementById("p5").innerHTML="Name = "+a;
-            document.getElementById("p6").innerHTML="Branch = "+b;
-            document.getElementById("p7").innerHTML="Enrollment Number = "+c;
-            document.getElementById("p8").innerHTML="College Name = "+d;   
-        }
+        const form = document.getElementById("student-form");
+        const details = document.getElementById("details");
+        const copied = document.getElementById("show");
+        const record = details.querySelector("dl");
+        const copyButton = document.getElementById("copy");
+        const studentStatus = document.getElementById("student-status");
+
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            for (const input of form.querySelectorAll("input")) {
+                input.value = input.value.trim();
+            }
+            if (!form.reportValidity()) return;
+
+            const values = new FormData(form);
+            for (const entry of record.querySelectorAll("dd")) {
+                entry.textContent = values.get(entry.dataset.field);
+            }
+            details.hidden = false;
+            copyButton.disabled = false;
+            studentStatus.textContent = "Details submitted.";
+        });
+
+        copyButton.addEventListener("click", () => {
+            const previousCopy = copied.querySelector("dl");
+            if (previousCopy) previousCopy.remove();
+            copied.append(record.cloneNode(true));
+            copied.hidden = false;
+            studentStatus.textContent = "Submitted details copied.";
+        });
     </script>
 </body>
 </html>

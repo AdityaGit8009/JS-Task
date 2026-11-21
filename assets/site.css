@@ -1,0 +1,74 @@
+:root {
+    color-scheme: light;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    color: #192b38;
+    background: #fafcfb;
+}
+
+body {
+    max-width: 52rem;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    line-height: 1.5;
+}
+
+button, input, select {
+    font: inherit;
+}
+
+button {
+    padding: .35rem .8rem;
+    cursor: pointer;
+}
+
+button:disabled {
+    cursor: default;
+}
+
+a {
+    color: #12577a;
+}
+
+:focus-visible {
+    outline: 3px solid #146c94;
+    outline-offset: 3px;
+}
+
+.fields {
+    display: grid;
+    gap: .35rem;
+    max-width: 26rem;
+    margin-bottom: 1rem;
+}
+
+.fields input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: .35rem;
+    margin-bottom: .5rem;
+}
+
+.fields button {
+    justify-self: start;
+}
+
+.record {
+    max-width: 32rem;
+    margin-block: 1rem;
+    padding: .75rem 1rem;
+    border-inline-start: .25rem solid #467861;
+    background: #edf4ef;
+    overflow-wrap: anywhere;
+}
+
+.record h2 {
+    margin-top: 0;
+}
+
+.record dt {
+    font-weight: 600;
+}
+
+.record dd {
+    margin: 0 0 .5rem;
+}
