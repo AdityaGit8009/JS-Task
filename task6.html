@@ -1,31 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bind UL to Dropdown</title>
-      <link rel="stylesheet" href="assets/site.css">
-  </head>
-  <body>
-    <ul id="list">
-      <li>India</li>
-      <li>USA</li>
-      <li>Canada</li>
-      <li>Australia</li>
-      <li>Germany</li>
-    </ul>
-    <select id="ddl"></select>
+    <title>Build a country dropdown</title>
+    <link rel="stylesheet" href="assets/site.css">
+    <style>
+        #list [aria-current] { font-weight: bold; text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Build a country dropdown</h1>
+        <ul id="list">
+            <li>India</li>
+            <li>USA</li>
+            <li>Canada</li>
+            <li>Australia</li>
+            <li>Germany</li>
+        </ul>
+        <label for="ddl">Country</label>
+        <select id="ddl"></select>
+    </main>
     <script>
-      var ul = document.getElementById("list");
-      var liItems = ul.getElementsByTagName("li");
-      var dropdown = document.getElementById("ddl");
-      for (var i = 0; i < liItems.length; i++) {
-        var option = document.createElement("option");
-        option.textContent = liItems[i].textContent;
-        dropdown.appendChild(option);
-      }
-    </script>
-      <footer class="exercise-return"><a href="index.html#exercises">Back to exercise directory</a></footer>
-  </body>
+        const countries = document.querySelectorAll("#list li");
+        const dropdown = document.getElementById("ddl");
 
+        for (const country of countries) {
+            dropdown.add(new Option(country.textContent, country.textContent));
+        }
+
+        function markSelection() {
+            for (const [index, country] of countries.entries()) {
+                if (index === dropdown.selectedIndex) {
+                    country.setAttribute("aria-current", "true");
+                } else {
+                    country.removeAttribute("aria-current");
+                }
+            }
+        }
+
+        dropdown.addEventListener("change", markSelection);
+        markSelection();
+    </script>
+    <footer class="exercise-return"><a href="index.html#exercises">Back to exercise directory</a></footer>
+</body>
 </html>
