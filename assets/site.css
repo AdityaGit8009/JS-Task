@@ -72,3 +72,30 @@ a {
 .record dd {
     margin: 0 0 .5rem;
 }
+
+#exercises {
+    margin-block: 2rem;
+    border-top: 2px solid #b8cec3;
+}
+
+#exercises ol {
+    display: grid;
+    gap: .2rem 2rem;
+    padding-inline-start: 2rem;
+}
+
+#exercises a {
+    display: inline-block;
+    padding: .3rem .15rem;
+}
+
+.exercise-return {
+    clear: both;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #b8cec3;
+}
+
+@media (min-width: 42rem) {
+    #exercises ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
