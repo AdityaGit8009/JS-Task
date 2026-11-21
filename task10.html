@@ -3,31 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Copy dropdown options to a list</title>
     <link rel="stylesheet" href="assets/site.css">
+    <style>
+        #output [aria-current] { font-weight: bold; text-decoration: underline; }
+    </style>
 </head>
 <body>
-     <select id="mySelect">
-        <option>Aditya</option>
-        <option>Sanjay</option>
-        <option>Abhishek</option>
-        <option>Ravi</option>
-    </select>
-    <input type="button" value="Show" onclick="show()">
-    <ol id="output"></ol>
-
-
+    <main>
+        <h1>Copy dropdown options to a list</h1>
+        <label for="mySelect">Name</label>
+        <select id="mySelect">
+            <option>Aditya</option>
+            <option>Sanjay</option>
+            <option>Abhishek</option>
+            <option>Ravi</option>
+        </select>
+        <button id="copy-options" type="button">Show all names</button>
+        <ol id="output" aria-label="Names copied from the dropdown"></ol>
+        <p id="copy-status" role="status"></p>
+    </main>
     <script>
-        function show() {
-            var select = document.getElementById("mySelect");
-            var output = document.getElementById("output");
-            output.innerHTML = "";
-            for (var i = 0; i < select.options.length; i++) {
-                var li = document.createElement("li");
-                li.textContent = select.options[i].text;
-                output.appendChild(li);
-            }
+        const select = document.getElementById("mySelect");
+        const output = document.getElementById("output");
+
+        function showOptions() {
+            const items = Array.from(select.options, (option) => {
+                const item = document.createElement("li");
+                item.textContent = option.text;
+                if (option.selected) item.setAttribute("aria-current", "true");
+                return item;
+            });
+            output.replaceChildren(...items);
+            document.getElementById("copy-status").textContent =
+                `${items.length} names shown. ${select.value} is selected.`;
         }
+
+        document.getElementById("copy-options").addEventListener("click", showOptions);
+        select.addEventListener("change", () => {
+            if (output.childElementCount) showOptions();
+        });
     </script>
     <footer class="exercise-return"><a href="index.html#exercises">Back to exercise directory</a></footer>
 </body>
