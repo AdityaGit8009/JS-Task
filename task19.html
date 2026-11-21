@@ -1,67 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website URL validation</title>
+    <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+    <main>
+        <h1>Website URL validation</h1>
+        <form id="url-form" class="fields">
+            <label for="url">Website address</label>
+            <input id="url" type="text" inputmode="url" autocomplete="url" aria-describedby="url-hint">
+            <p id="url-hint">Enter a domain such as example.com, with an optional http:// or https:// prefix.</p>
+            <button type="submit">Validate</button>
+        </form>
+        <output id="msg" for="url"></output>
+    </main>
+    <script>
+        const form = document.getElementById("url-form");
+        const input = document.getElementById("url");
+        const result = document.getElementById("msg");
 
-    <head>
-        <meta charset="UTF-8">
-        <title>Website URL Validation</title>
-        <style>
-            input {
-                padding: 8px;
-                width: 260px;
-                border: 2px solid #999;
-                border-radius: 5px;
+        function isWebsiteAddress(value) {
+            const hasScheme = /^[a-z][a-z0-9+.-]*:\/\//i.test(value);
+            const address = hasScheme ? value : "https://" + value;
+            if (/\s|\\/.test(value) || !/^https?:\/\/[^/?#]/i.test(address)) return false;
+
+            try {
+                const url = new URL(address);
+                if (!hasScheme && (url.username || url.password)) return false;
+                const hostname = url.hostname.replace(/\.$/, "");
+                const labels = hostname.split(".");
+                const domainLabel = /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/i;
+                const suffix = labels[labels.length - 1];
+                return hostname.length <= 253 && labels.length > 1 &&
+                    labels.every((label) => domainLabel.test(label)) &&
+                    (/^[a-z]{2,}$/i.test(suffix) || suffix.startsWith("xn--"));
+            } catch {
+                return false;
             }
+        }
 
-            #msg {
-                font-weight: 600;
-                margin-top: 8px;
+        input.addEventListener("input", () => {
+            input.removeAttribute("aria-invalid");
+            result.value = "";
+        });
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const address = input.value.trim();
+            const valid = isWebsiteAddress(address);
+            input.setAttribute("aria-invalid", String(!valid));
+            if (!address) {
+                result.value = "Please enter a URL.";
+                return;
             }
-        </style>
-    </head>
-
-    <body>
-        <h2>Validate Website URL</h2>
-        <input type="url" id="url" placeholder="Enter website URL .......">
-        <button onclick="validateURL()">Validate</button>
-        <p id="msg"></p>
-        <script>
-            function validateURL() {
-                var url = document.getElementById("url").value.trim();
-                var msg = document.getElementById("msg");
-                if (url == "") {
-                    msg.style.color = "red";
-                    msg.textContent = "Please enter a URL.";
-                    return;
-                }
-                if (url.startsWith("http://")) {
-                    url = url.substring(7);
-                }
-                else if (url.startsWith("https://")) {
-                    url = url.substring(8);
-                }
-                if (url.includes(" ")) {
-                    msg.style.color = "red";
-                    msg.textContent = "URL cannot contain spaces.";
-                    return;
-                }
-                var dotIndex = url.lastIndexOf(".");
-                if (dotIndex === -1) {
-                    msg.style.color = "red";
-                    msg.textContent = "Invalid URL. Missing domain extension.";
-                    return;
-                }
-                var extension = url.substring(dotIndex + 1);
-                if (extension.length < 2) {
-                    msg.style.color = "red";
-                    msg.textContent = "Invalid domain extension.";
-                    return;
-                }
-                msg.style.color = "green";
-                msg.textContent = "Valid Website URL.";
-            }
-
-        </script>
-
-    </body>
-
+            result.value = valid ? "Valid website URL." : "Enter a website with a valid domain and an HTTP or HTTPS address.";
+        });
+    </script>
+</body>
 </html>
