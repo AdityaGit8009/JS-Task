@@ -1,35 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resize an image</title>
+    <link rel="stylesheet" href="assets/site.css">
+    <style>
+        figure { margin: 1rem 0; overflow: auto; }
+        img { display: block; }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Resize an image</h1>
+        <form id="size-form" class="fields">
+            <label for="Fheight">Height in pixels</label>
+            <input id="Fheight" type="number" min="1" step="1" value="200" required>
+            <label for="Fwidth">Width in pixels</label>
+            <input id="Fwidth" type="number" min="1" step="1" value="400" required>
+            <button type="submit">Resize image</button>
+        </form>
+        <output id="size" for="Fheight Fwidth"></output>
+        <figure>
+            <img id="myImage" src="topHighlights-indiaNavy.webp" width="400" height="200"
+                 alt="A group in uniform with a naval officer in white at the front">
+        </figure>
+    </main>
+    <script>
+        const form = document.getElementById("size-form");
+        const image = document.getElementById("myImage");
 
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Resize Image</title>
-        <style>
-            img{
-                height: 200px;
-                width: 400px;
-                text-align: center;
-            }
-        </style>
-    </head>
-
-    <body>
-        Enter Height in px : 
-        <input type="number" id="Fheight" placeholder="Enter Height"><br><br>
-        Enter Width in px :         
-        <input type="number" id="Fwidth" placeholder="Enter Width"><br><br>
-        <button onclick="resizeImage()">Resize Image</button><br><br>
-        <img id="myImage" src="topHighlights-indiaNavy.webp" alt=""/>
-        <script>
-            function resizeImage() {
-                var width = document.getElementById("Fwidth").value;
-                var height = document.getElementById("Fheight").value;
-                myImage.style.width = width + 'px';
-                myImage.style.height = height + 'px';
-            }
-        </script>
-    </body>
-
-
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const width = document.getElementById("Fwidth").valueAsNumber;
+            const height = document.getElementById("Fheight").valueAsNumber;
+            image.style.width = `${width}px`;
+            image.style.height = `${height}px`;
+            document.getElementById("size").value = `Image resized to ${width} by ${height} pixels.`;
+        });
+    </script>
+</body>
 </html>
