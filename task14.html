@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-
-    <head>
-        <meta charset="UTF-8">
-        <title>Even Odd Colors Using JS</title>
-        <link rel="stylesheet" href="assets/site.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-
-    <body>
-
-        <h2>Even & Odd Colored Ordered List </h2>
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Highlight odd and even items</title>
+    <link rel="stylesheet" href="assets/site.css">
+    <style>
+        .odd { color: #9b2626; text-decoration: underline; }
+        .even { color: #1f6335; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Highlight odd and even items</h1>
+        <fieldset>
+            <legend>Highlight positions</legend>
+            <label><input id="odd" type="checkbox" checked> Odd</label>
+            <label><input id="even" type="checkbox" checked> Even</label>
+        </fieldset>
         <ol id="myList">
             <li>Item One</li>
             <li>Item Two</li>
@@ -20,20 +26,28 @@
             <li>Item Five</li>
             <li>Item Six</li>
         </ol>
-        <script>
-            var list = document.getElementById("myList");
-            var items = list.getElementsByTagName("li");
+        <output id="count" for="odd even"></output>
+    </main>
+    <script>
+        const items = document.querySelectorAll("#myList li");
+        const odd = document.getElementById("odd");
+        const even = document.getElementById("even");
 
-            for (var i = 0; i < items.length; i++) {
-                if ((i + 1) % 2 == 0) {
-                    items[i].style.color = "green";
-                    items[i].style.fontWeight = "900";
-                } else {
-                    items[i].style.color = "red";
-                }
+        function highlight() {
+            let highlighted = 0;
+            for (const [index, item] of items.entries()) {
+                const isOdd = (index + 1) % 2 === 1;
+                item.classList.toggle("odd", isOdd && odd.checked);
+                item.classList.toggle("even", !isOdd && even.checked);
+                if (item.classList.length) highlighted++;
             }
-        </script>
-        <footer class="exercise-return"><a href="index.html#exercises">Back to exercise directory</a></footer>
-    </body>
+            document.getElementById("count").value = `${highlighted} of ${items.length} items highlighted.`;
+        }
 
+        odd.addEventListener("change", highlight);
+        even.addEventListener("change", highlight);
+        highlight();
+    </script>
+    <footer class="exercise-return"><a href="index.html#exercises">Back to exercise directory</a></footer>
+</body>
 </html>
