@@ -1,34 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check a résumé file</title>
+    <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+    <main>
+        <h1>Check a résumé file</h1>
+        <form id="resume-form" class="fields" novalidate>
+            <label for="resume">Résumé file</label>
+            <input id="resume" type="file" accept=".pdf,.doc,.docx" required aria-describedby="file-hint">
+            <p id="file-hint">Choose a local PDF, DOC, or DOCX file to check its extension.</p>
+            <button type="submit">Check file</button>
+        </form>
+        <output id="file-status" for="resume"></output>
+    </main>
+    <script>
+        const form = document.getElementById("resume-form");
+        const input = document.getElementById("resume");
+        const status = document.getElementById("file-status");
 
-    <head>
-        <meta charset="UTF-8">
-        <title>Resume Upload Validation</title>
-    </head>
-
-    <body>
-
-        <h3>Upload Your Resume</h3>
-
-        <input type="file" value="myResume" id="resume">
-        <br><br>
-
-        <input type="button" value="Upload" onclick="validateFile()">
-
-        <script>
-            function validateFile() {
-                var file = document.getElementById("resume").value;
-                if (file === "") {
-                    alert("Please select a file.");
-                    return;
-                }
-                file = file.toLowerCase();
-                if (file.endsWith(".pdf") || file.endsWith(".doc") || file.endsWith(".docx")) {
-                    alert("File uploaded successfully!");
-                } else {
-                    alert("Invalid file! Only PDF, DOC, DOCX allowed.");
-                }
+        input.addEventListener("change", () => {
+            input.removeAttribute("aria-invalid");
+            status.value = "";
+        });
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const file = input.files[0];
+            if (!file) {
+                input.setAttribute("aria-invalid", "true");
+                status.value = "Please select a file.";
+                input.focus();
+                return;
             }
-        </script>
-    </body>
+            const allowed = /\.(pdf|docx?)$/i.test(file.name);
+            input.setAttribute("aria-invalid", String(!allowed));
+            status.value = allowed
+                ? file.name + " has an accepted extension."
+                : "Choose a file ending in .pdf, .doc, or .docx.";
+        });
+    </script>
+</body>
 </html>
