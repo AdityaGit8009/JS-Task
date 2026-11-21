@@ -1,63 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Names dropdown</title>
+    <link rel="stylesheet" href="assets/site.css">
+    <style>
+        #name-menu { width: fit-content; }
+        #sub1 { margin: 0; padding: .5rem 1rem .5rem 2rem; background: #edf4ef; }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Names dropdown</h1>
+        <div id="name-menu">
+            <button id="names-button" type="button" aria-expanded="false" aria-controls="sub1">Names</button>
+            <ul id="sub1" hidden>
+                <li>Aditya</li>
+                <li>Ayush</li>
+                <li>Sanjay</li>
+                <li>Abhishek</li>
+                <li>Raj</li>
+            </ul>
+        </div>
+    </main>
+    <script>
+        const menu = document.getElementById("name-menu");
+        const button = document.getElementById("names-button");
+        const names = document.getElementById("sub1");
+        let pinned = false;
 
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>JS Dropdown Menu</title>
+        function displayNames(expanded) {
+            names.hidden = !expanded;
+            button.setAttribute("aria-expanded", String(expanded));
+        }
 
-        <style>
-            ul {
-                list-style: none;
-                padding: 0;
-                margin: 0;
-            }
-            li {
-                background: #d69191;
-                padding: 10px;
-                width: 150px;
-                border: 1px solid #5bbb3e;
-                cursor: pointer;
-                position: relative;
-            }
-            .submenu li {
-                background: #eca2a2;
-            }
-            .submenu {
-                display: none;
-                position: absolute;
-                left: 150px;
-                top: 0;
-            }
-        </style>
+        function closeMenu() {
+            pinned = false;
+            displayNames(false);
+        }
 
-
-    </head>
-
-    <body>
-        <h2>JS Dropdown Menu</h2>
-        <ul>
-            <li onmouseover="showMenu()" onmouseout="hideMenu()">
-                Name
-                <ul id="sub1" class="submenu">
-                    <li>Aditya</li>
-                    <li>Ayush</li>
-                    <li>Sanjay</li>
-                    <li>Abhishek</li>
-                    <li>Raj</li>
-                </ul>
-            </li>
-        </ul>
-
-        <script>
-            function showMenu() {
-                document.getElementById("sub1").style.display = "block";
-            }
-
-            function hideMenu() {
-                document.getElementById("sub1").style.display = "none";
-            }
-        </script>
-    </body>
-
+        button.addEventListener("click", () => {
+            pinned = !pinned;
+            displayNames(pinned);
+        });
+        menu.addEventListener("pointerenter", (event) => {
+            if (event.pointerType === "mouse") displayNames(true);
+        });
+        menu.addEventListener("pointerleave", () => {
+            if (!pinned) displayNames(false);
+        });
+        menu.addEventListener("focusout", (event) => {
+            if (!menu.contains(event.relatedTarget)) closeMenu();
+        });
+        document.addEventListener("pointerdown", (event) => {
+            if (!menu.contains(event.target)) closeMenu();
+        });
+        document.addEventListener("keydown", (event) => {
+            if (event.key !== "Escape" || names.hidden) return;
+            closeMenu();
+            if (menu.contains(document.activeElement)) button.focus();
+        });
+    </script>
+</body>
 </html>
