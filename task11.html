@@ -1,52 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Dynamic Menu</title>
-        <style>
-            ul {
-                list-style-type: none;
-                padding: 0;
-                display: flex;
-            }
-            li {
-                width: 200px;
-                text-align: center;
-                cursor: pointer;
-            }
-            select,
-            input {
-                padding: 6px 10px;
-            }
-        </style>
-        <link rel="stylesheet" href="assets/site.css">
-    </head>
-    <body>
-        <h2>Create Menu</h2>
-        <select id="items">
-            <option value="">--Select---</option>
-            <option value="Home">Home</option>
-            <option value="About">About</option>
-            <option value="Skills">Skills</option>
-            <option value="Project">Project</option>
-            <option value="Contact">Contact</option>
-        </select>
-        <input type="button" value="Add Item" onclick="addItem()">
-        <ul id="menu"></ul>
-        <script>
-            function addItem() {
-                var select = document.getElementById("items").value;
-                if (select == "") {
-                    return;
-                }
-                var li = document.createElement("li");
-                li.textContent = select;
-                document.getElementById("menu").appendChild(li);
-                select = "";
-            }
-        </script>
-        <footer class="exercise-return"><a href="index.html#exercises">Back to exercise directory</a></footer>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build a menu</title>
+    <link rel="stylesheet" href="assets/site.css">
+    <style>
+        #menu { display: flex; flex-wrap: wrap; gap: .5rem; list-style: none; padding: 0; }
+        #menu li { padding: .4rem .8rem; background: #edf4ef; border: 1px solid #94ada0; }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Build a menu</h1>
+        <form id="menu-form">
+            <label for="items">Menu item</label>
+            <select id="items" required>
+                <option value="">Choose an item</option>
+                <option>Home</option>
+                <option>About</option>
+                <option>Skills</option>
+                <option>Project</option>
+                <option>Contact</option>
+            </select>
+            <button type="submit">Add item</button>
+        </form>
+        <ul id="menu" aria-label="Menu preview"></ul>
+        <output id="menu-status" for="items"></output>
+    </main>
+    <script>
+        const form = document.getElementById("menu-form");
+        const picker = document.getElementById("items");
+        const menu = document.getElementById("menu");
 
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const item = document.createElement("li");
+            item.textContent = picker.value;
+            menu.append(item);
+            document.getElementById("menu-status").value = `${picker.value} added to the menu.`;
+            picker.value = "";
+            picker.focus();
+        });
+    </script>
+    <footer class="exercise-return"><a href="index.html#exercises">Back to exercise directory</a></footer>
+</body>
 </html>
