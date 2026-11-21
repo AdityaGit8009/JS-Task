@@ -1,34 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Textbox Focus Effects</title>
-        <style>
-            .highlight {
-                background-color: #0fdf0f;
-                border-color: #001ec8;
-                border-radius: 8px;
-            }
-            input {
-                padding: 8px;
-                border-radius: 4px;
-                width: 200px;
-            }
-        </style>
-        <link rel="stylesheet" href="assets/site.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <h3>Textbox Styling on Focus & Blur</h3><br><br>
-        <input type="text" id="txtBox" placeholder="Enter something..." onfocus="addHighlight()" onblur="removeHighlight()">
-        <script>
-            function addHighlight() {
-                document.getElementById("txtBox").classList.add("highlight");
-            }
-            function removeHighlight() {
-                document.getElementById("txtBox").classList.remove("highlight");
-            }
-        </script>
-        <footer class="exercise-return"><a href="index.html#exercises">Back to exercise directory</a></footer>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus and blur a text field</title>
+    <link rel="stylesheet" href="assets/site.css">
+    <style>
+        #txtBox { padding: .4rem; max-width: 100%; box-sizing: border-box; }
+        #txtBox.highlight { background: #e5fae7; border-color: #20602a; }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Focus and blur a text field</h1>
+        <p id="focus-hint">Move into and out of the field to see its focus style change.</p>
+        <label for="txtBox">Sample text</label>
+        <input id="txtBox" type="text" aria-describedby="focus-hint">
+        <p><output id="focus-status" for="txtBox">Field is unfocused.</output></p>
+    </main>
+    <script>
+        const input = document.getElementById("txtBox");
+        const status = document.getElementById("focus-status");
+
+        function showFocusState() {
+            const focused = document.activeElement === input;
+            input.classList.toggle("highlight", focused);
+            status.value = focused ? "Field is focused." : "Field is unfocused.";
+        }
+
+        input.addEventListener("focus", showFocusState);
+        input.addEventListener("blur", showFocusState);
+    </script>
+    <footer class="exercise-return"><a href="index.html#exercises">Back to exercise directory</a></footer>
+</body>
 </html>
