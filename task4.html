@@ -1,58 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swap two panels</title>
+    <link rel="stylesheet" href="assets/site.css">
+    <style>
+        .panels { display: flex; flex-wrap: wrap; gap: 1rem; }
+        .panels div { border-radius: .5rem; padding: 1rem; min-height: 3rem; color: white; }
+        #first { background: #952f2f; }
+        #second { background: #24623b; }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Swap two panels</h1>
+        <p>
+            <button id="previous" type="button">Previous</button>
+            <button id="next" type="button">Next</button>
+        </p>
+        <div class="panels">
+            <div id="first">This is div 1</div>
+            <div id="second">This is div 2</div>
+        </div>
+        <p id="order-status" role="status"></p>
+    </main>
+    <script>
+        const first = document.getElementById("first");
+        const second = document.getElementById("second");
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Task 4</title>
-        <style>
-            #first,
-            #second {
-                height: 100px;
-                width: 140px;
-                border: 2px solid black;
-                border-radius: 10px;
-                float: left;
-                padding: 10px 0 0 10px;
-                font-size: 26px;
-                color: white;
-            }
+        function swap() {
+            const firstText = first.textContent;
+            first.textContent = second.textContent;
+            second.textContent = firstText;
+            document.getElementById("order-status").textContent =
+                `First panel: ${first.textContent}. Second panel: ${second.textContent}.`;
+        }
 
-            #first {
-                background: red;
-            }
-
-            #second {
-                background: green;
-                margin-left: 20px;
-            }
-
-            .btn {
-                height: 30px;
-                width: 70px;
-                margin: 10px 60px 20px 40px;
-            }
-        </style>
-        <link rel="stylesheet" href="assets/site.css">
-    </head>
-    <body>
-
-        <input type="button" value="prev" onclick="swap()" class="btn">
-        <input type="button" value="next" onclick="swap()" class="btn"><br><br>
-
-        <div id="first">This is div 1</div>
-        <div id="second">This is div 2</div>
-        <script>
-            function swap() {
-                var d1 = document.getElementById("first");
-                var d2 = document.getElementById("second");
-                var temp = d1.innerHTML;
-                d1.innerHTML = d2.innerHTML;
-                d2.innerHTML = temp;
-            }
-        </script>
-
-        <footer class="exercise-return"><a href="index.html#exercises">Back to exercise directory</a></footer>
-    </body>
-
+        document.getElementById("previous").addEventListener("click", swap);
+        document.getElementById("next").addEventListener("click", swap);
+    </script>
+    <footer class="exercise-return"><a href="index.html#exercises">Back to exercise directory</a></footer>
+</body>
 </html>
