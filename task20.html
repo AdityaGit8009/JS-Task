@@ -1,49 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Show Hide Toggle Image (JS)</title>
-        <style>
-            img {
-                width: 250px;
-                border: 2px solid #555;
-                border-radius: 10px;
-            }
-            button {
-                padding: 8px 14px;
-                margin-right: 6px;
-                margin-top: 10px;
-            }
-        </style>
-    </head>
-    <body>
-        <h2>Show / Hide / Toggle Image (JavaScript)</h2>
-        <img id="myImg" src="banner-2025-2.webp" alt="Sample Image">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show or hide an image</title>
+    <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+    <main>
+        <h1>Show or hide an image</h1>
+        <img id="myImg" src="banner-2025-2.webp" width="250" alt="A cricket ground viewed from the stadium stands">
+        <p>
+            <button id="show-image" type="button" aria-controls="myImg">Show</button>
+            <button id="hide-image" type="button" aria-controls="myImg">Hide</button>
+            <button id="toggle-image" type="button" aria-controls="myImg" aria-pressed="true">Toggle image visibility</button>
+        </p>
+        <output id="image-status">Image shown.</output>
+    </main>
+    <script>
+        const image = document.getElementById("myImg");
+        const toggle = document.getElementById("toggle-image");
+        const status = document.getElementById("image-status");
 
-        <br>
+        function setVisible(visible) {
+            image.hidden = !visible;
+            toggle.setAttribute("aria-pressed", String(visible));
+            status.value = visible ? "Image shown." : "Image hidden.";
+        }
 
-        <button onclick="showImg()">Show</button>
-        <button onclick="hideImg()">Hide</button>
-        <button onclick="toggleImg()">Show / Hide</button>
-
-        <script>
-            var img = document.getElementById("myImg");
-            function showImg() {
-                img.style.display = "block";
-            }
-            function hideImg() {
-                img.style.display = "none";
-            }
-            function toggleImg() {
-                if (img.style.display == "none") {
-                    img.style.display = "block";
-                } else {
-                    img.style.display = "none";
-                }
-            }
-        </script>
-
-    </body>
-
-
+        document.getElementById("show-image").addEventListener("click", () => setVisible(true));
+        document.getElementById("hide-image").addEventListener("click", () => setVisible(false));
+        toggle.addEventListener("click", () => setVisible(image.hidden));
+    </script>
+</body>
 </html>
