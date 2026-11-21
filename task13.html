@@ -1,53 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Dropdown</title>
-    </head>
-    <body>
-        Enter Item :
-        <input type="text" id="txt">
-        <select id="dd"></select>
-        <br><br>
-        <input type="button" value="Add After All" onclick="addAfterAll()">
-        <input type="button" value="Add Before First" onclick="addBeforeFirst()">
-        <input type="button" value="Add After First" onclick="addAfterFirst()">
-        <input type="button" value="Empty All Items" onclick="emptyAll()">
-        <input type="button" value="Remove Dropdown" onclick="removeDropdown()">
-        <script>
-            var items = ["One", "Two"];
-            dropdown();
-            function dropdown() {
-                var dd = document.getElementById("dd");
-                dd.innerHTML = "";
-                for (var i = 0; i < items.length; i++) {
-                    var opt = document.createElement("option");
-                    opt.text = items[i];
-                    dd.appendChild(opt);
-                }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit dropdown options</title>
+    <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+    <main>
+        <h1>Edit dropdown options</h1>
+        <div id="dropdown-slot">
+            <div id="dropdown-field">
+                <label for="dd">Current options</label>
+                <select id="dd"><option>One</option><option>Two</option></select>
+            </div>
+        </div>
+        <form id="edit-form">
+            <fieldset id="edit-controls">
+                <legend>Edit options</legend>
+                <p><label for="txt">New item</label> <input id="txt" required></p>
+                <button type="submit" value="end">Add after all</button>
+                <button type="submit" value="first">Add before first</button>
+                <button type="submit" value="after-first">Add after first</button>
+                <button type="button" id="empty">Empty all items</button>
+            </fieldset>
+        </form>
+        <p><button type="button" id="remove">Remove dropdown</button></p>
+        <p id="edit-status" role="status"></p>
+    </main>
+    <script>
+        const form = document.getElementById("edit-form");
+        const input = document.getElementById("txt");
+        const dropdown = document.getElementById("dd");
+        const field = document.getElementById("dropdown-field");
+        const controls = document.getElementById("edit-controls");
+        const remove = document.getElementById("remove");
+        const status = document.getElementById("edit-status");
+
+        input.addEventListener("input", () => input.setCustomValidity(""));
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const item = input.value.trim();
+            if (!item) {
+                input.setCustomValidity("Enter an item with at least one visible character.");
+                input.reportValidity();
+                return;
             }
-            function addAfterAll() {
-                var val = document.getElementById("txt").value;
-                items.push(val);
-                dropdown();
+            const positions = { first: 0, "after-first": 1, end: dropdown.length };
+            const position = positions[event.submitter?.value ?? "end"];
+            const option = new Option(item, item);
+            dropdown.insertBefore(option, dropdown.options[position] ?? null);
+            input.value = "";
+            input.focus();
+            status.textContent = `Added ${item}.`;
+        });
+
+        document.getElementById("empty").addEventListener("click", () => {
+            dropdown.replaceChildren();
+            status.textContent = "All items removed.";
+        });
+        remove.addEventListener("click", () => {
+            if (field.isConnected) {
+                field.remove();
+                controls.disabled = true;
+                remove.textContent = "Restore dropdown";
+                status.textContent = "Dropdown removed.";
+            } else {
+                document.getElementById("dropdown-slot").append(field);
+                controls.disabled = false;
+                remove.textContent = "Remove dropdown";
+                status.textContent = "Dropdown restored.";
             }
-            function addBeforeFirst() {
-                var val = document.getElementById("txt").value;
-                items.unshift(val);
-                dropdown();
-            }
-            function addAfterFirst() {
-                var val = document.getElementById("txt").value;
-                items.splice(1, 0, val);
-                dropdown();
-            }
-            function emptyAll() {
-                items = [];
-                dropdown();
-            }
-            function removeDropdown() {
-                document.getElementById("dd").remove();
-            }
-        </script>
-    </body>
+        });
+    </script>
+</body>
 </html>
