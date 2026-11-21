@@ -1,45 +1,46 @@
 <!DOCTYPE html>
-<html>
-
-  <head>
-    <title>Input Validation</title>
-    <style>
-      .errormsg {
-        color: red;
-        font-size: 14px;
-        display: none;
-        margin: 0 0 6px 0;
-      }
-    </style>
-      <link rel="stylesheet" href="assets/site.css">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
-
-  <body>
-    <h2>Fill Your Details</h2><br><br>
-    Enter Your Name
-    <input type="text" id="name" />
-    <p class="errormsg" id="nameError">Please fill your name</p><br>
-    <input type="button" value="Submit" onclick="submit()">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validate a name</title>
+    <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+    <main>
+        <h1>Validate a name</h1>
+        <form id="name-form" class="fields" novalidate>
+            <label for="name">Your name</label>
+            <input id="name" name="name" autocomplete="name" required aria-describedby="nameError">
+            <p id="nameError" role="alert" hidden>Enter a name with at least one visible character.</p>
+            <button type="submit">Submit</button>
+        </form>
+        <output id="name-status" for="name"></output>
+    </main>
     <script>
-      function submit() {
-        // window.alert("HIi");
-        var name = document.getElementById("name");
-        // window.alert(name);
-        var nameError = document.getElementById("nameError");
-        valid = true;
-        if (name.value.trim() == "") {
-          nameError.style.display = "block";
-          valid = false;
-        } else {
-          nameError.style.display = "none";
-        }
-        if (valid) {
-          alert("Form submitted successfully!");
-        }
-      }
-    </script>
-      <footer class="exercise-return"><a href="index.html#exercises">Back to exercise directory</a></footer>
-  </body>
+        const form = document.getElementById("name-form");
+        const input = document.getElementById("name");
+        const error = document.getElementById("nameError");
+        const status = document.getElementById("name-status");
 
+        input.addEventListener("input", () => {
+            input.removeAttribute("aria-invalid");
+            error.hidden = true;
+            status.value = "";
+        });
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const name = input.value.trim();
+            error.hidden = Boolean(name);
+            input.setAttribute("aria-invalid", String(!name));
+            if (!name) {
+                status.value = "";
+                input.focus();
+                return;
+            }
+            status.value = `Details submitted for ${name}.`;
+        });
+    </script>
+    <footer class="exercise-return"><a href="index.html#exercises">Back to exercise directory</a></footer>
+</body>
 </html>
