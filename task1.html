@@ -1,29 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Print Table</title>
-  </head>
-  <body>
-    Enter a Number : <input type="number" id="num" /><br /><br />
-    <input type="button" value="Get Table" onclick="table()" />
-    <div id="result"></div>
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplication table</title>
+    <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+    <main>
+        <h1>Multiplication table</h1>
+        <form id="table-form" class="fields">
+            <label for="num">Number</label>
+            <input id="num" type="number" step="any" required>
+            <button type="submit">Get table</button>
+        </form>
+        <p id="table-status" role="status"></p>
+        <ol id="result"></ol>
+    </main>
     <script>
-      function table() {
-        // window.alert("hii");
-        var a = document.getElementById("num").value;
-        // window.alert(a);
-        var b=0;
-        for (i = 1; i <= 10; i++) {
-          // window.alert(a*i);
-          for (var i = 1; i <= 10; i++) {
-            b += a * i + "<br>";
-          }
-          document.getElementById("result").innerHTML = b;
-        }
-      }
+        const form = document.getElementById("table-form");
+        const input = document.getElementById("num");
+        const result = document.getElementById("result");
+        const status = document.getElementById("table-status");
+
+        form.addEventListener("input", () => {
+            result.replaceChildren();
+            status.textContent = "";
+        });
+
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const factor = input.valueAsNumber;
+            result.replaceChildren();
+            if (!Number.isFinite(factor * 10)) {
+                status.textContent = "Use a smaller number to show all ten products.";
+                return;
+            }
+            for (let multiplier = 1; multiplier <= 10; multiplier++) {
+                const row = document.createElement("li");
+                row.textContent = `${factor} × ${multiplier} = ${factor * multiplier}`;
+                result.append(row);
+            }
+            status.textContent = `Multiplication table for ${factor}.`;
+        });
     </script>
-  </body>
+</body>
 </html>
