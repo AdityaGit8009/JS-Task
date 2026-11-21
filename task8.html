@@ -3,22 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Change the color of div</title>
-    <style>
-        #myDiv{
-            height: 200px;
-            width: 200px;
-            border-radius: 10px;
-            border: 2px solid black;
-        }
-    </style>
+    <title>Change a color swatch</title>
     <link rel="stylesheet" href="assets/site.css">
+    <style>
+        #myDiv { width: min(100%, 12.5rem); aspect-ratio: 1; border: 2px solid #192b38; border-radius: .5rem; }
+    </style>
 </head>
 <body>
-    <div id="myDiv"></div>
-
+    <main>
+        <h1>Change a color swatch</h1>
+        <p>
+            <label for="color">Swatch color</label>
+            <input id="color" type="color" value="#008000">
+        </p>
+        <div id="myDiv" aria-hidden="true"></div>
+        <p><output id="color-value" for="color"></output></p>
+    </main>
     <script>
-        var division = document.getElementById("myDiv").style.backgroundColor="green";
+        const picker = document.getElementById("color");
+        const swatch = document.getElementById("myDiv");
+        const value = document.getElementById("color-value");
+
+        function paint() {
+            swatch.style.backgroundColor = picker.value;
+            value.value = picker.value.toUpperCase();
+        }
+
+        picker.addEventListener("input", paint);
+        paint();
     </script>
     <footer class="exercise-return"><a href="index.html#exercises">Back to exercise directory</a></footer>
 </body>
