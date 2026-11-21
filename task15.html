@@ -1,35 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Multicolor Dropdown List</title>
-        <link rel="stylesheet" href="assets/site.css">
-    </head>
-
-    <body>
-        <h2>Multicolor Dropdown List (Using JavaScript)</h2>
-
-        <select id="myDrop" size="6" style="width:150px;">
-            <option>Red</option>
-            <option>Blue</option>
-            <option>Green</option>
-            <option>Yellow</option>
-            <option>Purple</option>
-            <option>Orange</option>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore six colors</title>
+    <link rel="stylesheet" href="assets/site.css">
+    <style>
+        #myDrop { display: block; min-width: 9rem; }
+        #preview { display: inline-block; padding: .2rem .75rem; border: 1px solid currentColor; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Explore six colors</h1>
+        <label for="myDrop">Colors</label>
+        <select id="myDrop" size="6">
+            <option value="red" selected>Red</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+            <option value="yellow">Yellow</option>
+            <option value="purple">Purple</option>
+            <option value="orange">Orange</option>
         </select>
-        <script>
-            var colors = ["red", "blue", "green", "gold", "purple", "orange"];
-            var dd = document.getElementById("myDrop");
-            var items = dd.options;
-            for (var i = 0; i < items.length; i++) {
-                items[i].style.color = colors[i % colors.length];
-                items[i].style.fontWeight = "600";
-            }
-        </script>
+        <p>Selected color <output id="preview" for="myDrop"></output></p>
+    </main>
+    <script>
+        const picker = document.getElementById("myDrop");
+        const preview = document.getElementById("preview");
+        const textColors = { red: "black", blue: "white", green: "white", yellow: "black", purple: "white", orange: "black" };
 
-        <footer class="exercise-return"><a href="index.html#exercises">Back to exercise directory</a></footer>
-    </body>
+        for (const option of picker.options) {
+            option.style.backgroundColor = option.value;
+            option.style.color = textColors[option.value];
+        }
 
+        function showColor() {
+            const option = picker.selectedOptions[0];
+            preview.style.backgroundColor = option.value;
+            preview.style.color = textColors[option.value];
+            preview.value = option.text;
+        }
+
+        picker.addEventListener("change", showColor);
+        showColor();
+    </script>
+    <footer class="exercise-return"><a href="index.html#exercises">Back to exercise directory</a></footer>
+</body>
 </html>
