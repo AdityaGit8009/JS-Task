@@ -34,7 +34,7 @@
             first.textContent = second.textContent;
             second.textContent = firstText;
             document.getElementById("order-status").textContent =
-                `First panel: ${first.textContent}. Second panel: ${second.textContent}.`;
+                `The first panel reads “${first.textContent}”. The second reads “${second.textContent}”.`;
         }
 
         document.getElementById("previous").addEventListener("click", swap);
