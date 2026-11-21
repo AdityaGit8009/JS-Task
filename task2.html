@@ -1,50 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Task2</title>
-  </head>
-  <body>
-    Enter First Number : <input type="number" id="fnum" /><br /><br />
-    Enter Second Number : <input type="number" id="snum" /><br /><br />
-    <input type="submit" value="Addition" onclick="sum()" />
-    <input type="submit" value="Subtraction" onclick="sub()" />
-    <input type="submit" value="Multiplication" onclick="mult()" />
-    <input type="submit" value="Division" onclick="div()" />
-    <input type="submit" value="Modulus" onclick="mod()" />
-    <h1 id="result"></h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arithmetic calculator</title>
+    <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+    <main>
+        <h1>Arithmetic calculator</h1>
+        <form id="calculator">
+            <div class="fields">
+                <label for="fnum">First number</label>
+                <input id="fnum" type="number" step="any" required>
+                <label for="snum">Second number</label>
+                <input id="snum" type="number" step="any" required>
+            </div>
+            <button type="submit" value="add">Addition</button>
+            <button type="submit" value="subtract">Subtraction</button>
+            <button type="submit" value="multiply">Multiplication</button>
+            <button type="submit" value="divide">Division</button>
+            <button type="submit" value="remainder">Modulus</button>
+        </form>
+        <p><output id="result" for="fnum snum"></output></p>
+    </main>
     <script>
-      function sum() {
-        var a = document.getElementById("fnum").value;
-        var b = document.getElementById("snum").value;
-        var c = parseInt(a) + parseInt(b);
-        document.getElementById("result").innerHTML = c;
-      }
-      function sub() {
-        var a = document.getElementById("fnum").value;
-        var b = document.getElementById("snum").value;
-        var c = parseInt(a) - parseInt(b);
-        document.getElementById("result").innerHTML = c;
-      }
-      function mult() {
-        var a = document.getElementById("fnum").value;
-        var b = document.getElementById("snum").value;
-        var c = parseInt(a) * parseInt(b);
-        document.getElementById("result").innerHTML = c;
-      }
-      function div() {
-        var a = document.getElementById("fnum").value;
-        var b = document.getElementById("snum").value;
-        var c = parseInt(a) / parseInt(b);
-        document.getElementById("result").innerHTML = c;
-      }
-      function mod() {
-        var a = document.getElementById("fnum").value;
-        var b = document.getElementById("snum").value;
-        var c = parseInt(a) % parseInt(b);
-        document.getElementById("result").innerHTML = c;
-      }
+        const form = document.getElementById("calculator");
+        const result = document.getElementById("result");
+        const operations = {
+            add: (first, second) => first + second,
+            subtract: (first, second) => first - second,
+            multiply: (first, second) => first * second,
+            divide: (first, second) => first / second,
+            remainder: (first, second) => first % second
+        };
+
+        form.addEventListener("input", () => { result.value = ""; });
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const first = document.getElementById("fnum").valueAsNumber;
+            const second = document.getElementById("snum").valueAsNumber;
+            const operation = event.submitter?.value ?? "add";
+            if (second === 0 && (operation === "divide" || operation === "remainder")) {
+                result.value = "The divisor must be different from zero.";
+                return;
+            }
+            const answer = operations[operation](first, second);
+            result.value = Number.isFinite(answer) ? String(answer) : "The result is outside the number range.";
+        });
     </script>
-  </body>
+</body>
 </html>
