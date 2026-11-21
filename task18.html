@@ -1,56 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>PIN Code Validation</title>
-        <style>
-            input {
-                padding: 8px;
-                border: 2px solid #999;
-                border-radius: 5px;
-                width: 180px;
-            }
-            #msg {
-                font-weight: 600;
-                margin-top: 8px;
-            }
-        </style>
-    </head>
-    <body>
-        <h2>Indian PIN Code Validation</h2><br><br>
-        Enter PinCode :
-        <input type="text" id="pin">
-        <button onclick="validatePin()">Validate</button>
-        <p id="msg"></p>
-        <script>
-            function validatePin() {
-                var pin = document.getElementById("pin").value.trim();
-                var msg = document.getElementById("msg");
-                if(pin.length==6){
-                    msg.style.color = "green";
-                    msg.textContent = "Valid PIN Code.";
-                    return;
-                }
-                if (pin.length !== 6) {
-                    msg.style.color = "red";
-                    msg.textContent = "Invalid PIN Code. Must be 6 digits.";
-                    return;
-                }
-                if (pin[0] === "0") {
-                    msg.style.color = "red";
-                    msg.textContent = "Invalid PIN Code. Cannot start with 0.";
-                    return;
-                }
-                if (isNaN(pin)) {
-                    msg.style.color = "red";
-                    msg.textContent = "Invalid PIN Code. Only digits allowed.";
-                    return;
-                }
-                else {
-                    msg.style.color = "red";
-                    msg.textContent = "Invalid PIN Code. Please enter a 6-digit number.";
-                }
-            }
-        </script>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian PIN code validation</title>
+    <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+    <main>
+        <h1>Indian PIN code validation</h1>
+        <form id="pin-form" class="fields" novalidate>
+            <label for="pin">PIN code</label>
+            <input id="pin" type="text" inputmode="numeric" autocomplete="postal-code" required aria-describedby="pin-hint">
+            <p id="pin-hint">Enter six digits, starting with 1 through 9.</p>
+            <button type="submit">Validate</button>
+        </form>
+        <output id="msg" for="pin"></output>
+    </main>
+    <script>
+        const form = document.getElementById("pin-form");
+        const input = document.getElementById("pin");
+        const result = document.getElementById("msg");
+
+        input.addEventListener("input", () => {
+            input.removeAttribute("aria-invalid");
+            result.value = "";
+        });
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const valid = /^[1-9][0-9]{5}$/.test(input.value.trim());
+            input.setAttribute("aria-invalid", String(!valid));
+            result.value = valid ? "Valid PIN code." : "Enter six digits with a nonzero first digit.";
+        });
+    </script>
+</body>
 </html>
